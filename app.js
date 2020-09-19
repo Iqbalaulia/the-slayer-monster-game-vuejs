@@ -4,6 +4,7 @@ new Vue({
         playerHealth: 100,
         monsterHealth: 100,
         gameIsRunning: false,
+        turns: [],
 
     },
     methods: {
@@ -14,8 +15,12 @@ new Vue({
         },
         attack: function () {
 
-            this.monsterHealth -= this.calculateDemage(3, 10);
-
+            let demage = this.calculateDemage(3, 10);
+            this.monsterHealth -= demage
+            this.turns.unshift({
+                isPlayer: true,
+                text: 'Pemain menyerang monster dengan kekuatang ' + demage
+            });
             // Checking healt
             if (this.checkWin()) {
                 return;
@@ -46,8 +51,13 @@ new Vue({
             this.gameIsRunning = false;
         },
         monsterAttacks: function () {
-            this.playerHealth -= this.calculateDemage(5, 12);
+            let demage = this.calculateDemage(5, 12);
+            this.playerHealth -= demage;
             this.checkWin();
+            this.turns.unshift({
+                isPlayer: false,
+                text: 'Monster menyerang pemain dengan kekuatang ' + demage + '!'
+            });
         },
         calculateDemage: function (min, max) {
             return Math.max(Math.floor(Math.random() * max) + 1, min);
