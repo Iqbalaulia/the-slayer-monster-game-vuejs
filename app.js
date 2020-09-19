@@ -12,6 +12,7 @@ new Vue({
             this.gameIsRunning = true;
             this.playerHealth = 100;
             this.monsterHealth = 100;
+            this.turns = [];
         },
         attack: function () {
 
@@ -31,7 +32,12 @@ new Vue({
 
         },
         specialAttack: function () {
-            this.monsterHealth -= this.calculateDemage(10, 20);
+            let demage = this.calculateDemage(10, 20);
+            this.monsterHealth -= demage;
+            this.turns.unshift({
+                isPlayer: true,
+                text: 'Pemain menyerang monster dengan kekuatang besar ' + demage
+            });
             // Checking healt
             if (this.checkWin()) {
                 return;
@@ -44,6 +50,11 @@ new Vue({
             } else {
                 this.playerHealth = 100;
             }
+            this.turns.unshift({
+                isPlayer: true,
+                text: 'Pemain heal 10 ';
+            });
+
             this.monsterAttacks();
         },
         giveUp: function () {
