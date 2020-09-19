@@ -13,28 +13,16 @@ new Vue({
             this.monsterHealth = 100;
         },
         attack: function () {
-            let max = 10;
-            let min = 3;
-            let demage = Math.max(Math.floor(Math.random() * max) + 1, min)
-            this.monsterHealth -= demage
+
+            this.monsterHealth -= this.calculateDemage(3, 10);
 
             // Checking healt
-            if (this.monsterHealth <= 0) {
-                alert('Kamu Menang!')
-                this.demage = false
-                return
+            if (this.checkWin()) {
+                return;
             }
-            max = 12;
-            min = 5;
-            demage = Math.max(Math.floor(Math.random() * max) + 1, min)
-            this.playerHealth -= demage
 
-            // Checking healt
-            if (this.monsterHealth <= 0) {
-                alert('0h! Kamu Kalah!')
-                this.demage = false
-                return
-            }
+            this.playerHealth -= this.calculateDemage(5, 12);
+            this.checkWin();
 
         },
         specialAttack: function () {
@@ -45,6 +33,29 @@ new Vue({
         },
         giveUp: function () {
 
+        },
+        calculateDemage: function (min, max) {
+            return Math.max(Math.floor(Math.random() * max) + 1, min);
+        },
+        checkWin: function () {
+            if (this.monsterHealth <= 0) {
+                if (confirm('Kamu Menang ! Permainan Baru?')) {
+                    this.startGame();
+                } else {
+                    this.gameIsRunning = false;
+                }
+                return true;
+            } else if (this.playerHealth <= 0) {
+                if (confirm('Oh, Tidak! Kamu Kalah ! Permainan Baru?')) {
+                    this.startGame();
+                } else {
+                    this.gameIsRunning = false;
+                }
+                return true;
+
+            }
+
+            return false
         }
     },
 })
