@@ -38,11 +38,12 @@ new Vue({
                 this.playerHealth += 10;
             } else {
                 this.playerHealth = 100;
-            } 
+            }
             this.monsterAttacks();
         },
         giveUp: function () {
-
+            alert('Kamu Menyerah ?')
+            this.gameIsRunning = false;
         },
         monsterAttacks: function () {
             this.playerHealth -= this.calculateDemage(5, 12);
