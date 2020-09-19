@@ -26,13 +26,22 @@ new Vue({
 
         },
         specialAttack: function () {
-
+            this.monsterHealth -= this.calculateDemage(10, 20);
+            // Checking healt
+            if (this.checkWin()) {
+                return;
+            }
+            this.monsterAttacks();
         },
         heal: function () {
 
         },
         giveUp: function () {
 
+        },
+        monsterAttacks: function () {
+            this.playerHealth -= this.calculateDemage(5, 12);
+            this.checkWin();
         },
         calculateDemage: function (min, max) {
             return Math.max(Math.floor(Math.random() * max) + 1, min);
