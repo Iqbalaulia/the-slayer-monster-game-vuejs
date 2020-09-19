@@ -28,6 +28,10 @@ new Vue({
             }
 
             this.playerHealth -= this.calculateDemage(5, 12);
+            this.turns.unshift({
+                isPlayer: false,
+                text: 'Pemain diserang oleh monster  dengan keuatan ' + this.calculateDemage(5, 12)
+            });
             this.checkWin();
 
         },
@@ -52,7 +56,7 @@ new Vue({
             }
             this.turns.unshift({
                 isPlayer: true,
-                text: 'Pemain heal 10 ';
+                text: 'Pemain melakukan healing 10 ',
             });
 
             this.monsterAttacks();
